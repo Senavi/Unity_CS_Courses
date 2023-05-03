@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Mover : MonoBehaviour
 {
+
+[SerializeField] float[] speed = {0.03f, -0.03f};
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,12 +19,6 @@ public class Mover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {transform.Translate(1,0,0);}
-
-        else if (Input.GetKeyDown(KeyCode.A))
-        {{transform.Translate(-1,0,0);}}
+        transform.Translate(Input.GetAxis("Horizontal"), 0,0);
     }
 }
