@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class Mover : MonoBehaviour
 {
+
+[SerializeField] float moveSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +19,12 @@ public class Mover : MonoBehaviour
     {
         float xValue = Input.GetAxis("Horizontal")*Time.deltaTime;
         float zValue = Input.GetAxis("Vertical")*Time.deltaTime;
-        transform.Translate(xValue, 0,zValue);
+        float xSpeed = xValue*moveSpeed;
+        float zSpeed = zValue*moveSpeed;
 
-
+        transform.Translate(xSpeed, 0,zSpeed);
     }
+
+
+
 }
