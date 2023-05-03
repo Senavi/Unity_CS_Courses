@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d841fb29cdae2774a900e9acb0dd367d, type: 3}
+  m_Name: SecondState
+  m_EditorClassIdentifier: 
+  storyText: "You make your way through the corridor, taking out enemy soldiers as
+    you go. Suddenly, you hear a loud explosion from the control room. \n\nYou can
+    either:\n\n1. Rush to the control room to see what happened.\r\n\r\n2. Continue
+    your way to the engine room to ensure that the airship stays afloat."
+  nextState:
+  - {fileID: 11400000, guid: 6936f284939634840a4c1cc936976209, type: 2}
+  - {fileID: 11400000, guid: 55ba553f3916e04448f4889a6cd3551c, type: 2}
