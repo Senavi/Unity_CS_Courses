@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class ScoreBumps : MonoBehaviour
 {
-[SerializeField] public Text ScoreField;
+    
+[SerializeField] Text ScoreField;
+[SerializeField] private int maxHealth = 100;
+[SerializeField] private HealthBar healthBar;
 
-
-public int maxHealth = 100;
-public int currentHealth;
-public HealthBar healthBar;
-
+private int hits;
+private int currentHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -20,28 +20,21 @@ public HealthBar healthBar;
     currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-
-int hits;
-public void OnCollisionEnter(Collision other)
-{
-    hits++;
-    ScoreField.text = hits.ToString();
-    TakeDamage(5);
-    Debug.Log("Your're health is: " + currentHealth);
-
-}
 
 public void TakeDamage(int Damage)
 {
     currentHealth -= Damage;
     healthBar.SetHealth(currentHealth);
+    Debug.Log("Your're health is: " + currentHealth);
 }
 
+public void AddHit()
+{
+    hits++;
+}
 
-
+public void UpdateScoreText()
+{
+    ScoreField.text = hits.ToString();
+}
 }
