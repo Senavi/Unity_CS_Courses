@@ -4,19 +4,43 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public Animator anim;
-    [SerializeField] float moveSpeed = 10f;
+    private Camera cam;
+    private Unit selectedUnit;
 
-    // Update is called once per frame
-public void Update()
-{
-    float horizontalInput = Input.GetAxis("Horizontal") * 15 * Time.deltaTime;
-    float verticalInput = Input.GetAxis("Vertical") * 15 * Time.deltaTime;
+    private void Start()
+    {
+        cam = Camera.main;
+    }
 
-    anim.SetFloat("Horizontal", horizontalInput);
-    anim.SetFloat("Vertical", verticalInput);
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0)) // Left click to select unit
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-    transform.Translate(horizontalInput, 0, verticalInput);
-}
+            if (Physics.Raycast(ray, out hit))
+            {
+                Unit unit = hit.collider.GetComponent<Unit>();
+                if (unit != null)
+                {
+                    selectedUnit = unit;
+                    Debug.Log("You selected the unit!");
+                }
+            }
+        }
+        else if (Input.GetMouseButtonDown(1)) // Right click to move unit
+        {
+            if (selectedUnit != null)
+            {
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
+                if (Physics.Raycast(ray, out hit))
+                {
+                    selectedUnit.MoveTo(hit.point);
+                }
+            }
+        }
+    }
 }
