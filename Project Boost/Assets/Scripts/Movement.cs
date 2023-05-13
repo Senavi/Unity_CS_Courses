@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-Rigidbody rb;
-AudioSource audioSource;
-[SerializeField] private float Thread = 10f;
-[SerializeField] private float RotationThread = 2f;
+    [SerializeField] private float Thread = 10f;
+    [SerializeField] private float RotationThread = 2f;
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] ParticleSystem LeftParticle;
+    [SerializeField] ParticleSystem RightParticle;
+    [SerializeField] ParticleSystem MainBoost;
+
+    Rigidbody rb;
+    AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,23 +25,28 @@ audioSource = GetComponent<AudioSource>();
     // Update is called once per frame
     void Update()
     {
-ProcessThrust();
-ProcessRotate();
+    ProcessThrust();
+    ProcessRotate();
     }
 
     void ProcessThrust()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-rb.AddRelativeForce(Vector3.up*Thread*Time.deltaTime);
-if (!audioSource.isPlaying)
-{
-audioSource.Play();
-}
+        rb.AddRelativeForce(Vector3.up*Thread*Time.deltaTime);
+        
+        if (!audioSource.isPlaying)
+        {
+        audioSource.PlayOneShot(mainEngine);
+        }
+            if (!MainBoost.isPlaying) { 
+            MainBoost.Play();
+            }
         }
         else
         {
             audioSource.Stop();
+            MainBoost.Stop();
         }
     }
 
@@ -44,11 +55,26 @@ audioSource.Play();
        if (Input.GetKey(KeyCode.D))
         {
        ApplyRotation(RotationThread);
+
+            if (!RightParticle.isPlaying) 
+            { 
+            RightParticle.Play();
+            }
         }
 
         else if (Input.GetKey(KeyCode.A))
         {
             ApplyRotation(-RotationThread);
+
+            if (!LeftParticle.isPlaying)
+            {
+                LeftParticle.Play();
+            }
+        }
+        else
+        {
+            LeftParticle.Stop();
+            RightParticle.Stop();
         }
     }
 
@@ -59,4 +85,5 @@ audioSource.Play();
         transform.Rotate(-Vector3.forward*rotationThisFrame*Time.deltaTime);
         rb.freezeRotation = false;
     }
+
 }
