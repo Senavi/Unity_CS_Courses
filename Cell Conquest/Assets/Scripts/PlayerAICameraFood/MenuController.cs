@@ -42,7 +42,17 @@ public class MenuController : MonoBehaviour
         // and do whatever you want with them.
 
         // Then, start the host:
-        networkManager.StartHost();
+        NetworkManager.singleton.StartHost();
     }
+
+    public void JoinLobby()
+    {
+        // Input validation for lobby name, player name, and password...
+
+        NetworkManager.singleton.networkAddress = "localhost"; // Replace with the actual server address
+        NetworkManager.singleton.StartClient();
+    }
+
+
 
 }
